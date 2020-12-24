@@ -32,3 +32,4 @@ dist
 
 #Ignore 
 src/config
+orig.js

@@ -83,7 +83,7 @@ export function getWandEmbed(wand: IWand, member: User): MessageEmbed {
 	const embed = new MessageEmbed();
 
 	embed.setTitle("Wand");
-	embed.setColor("#3b5998");
+	embed.setColor("#330000");
 
 	embed.setDescription("This wand has been randomly generated.");
 	embed.setAuthor(member.username, member.avatarURL());

@@ -3,7 +3,7 @@ import { generateWand, getWandEmbed } from "../../types/Wand";
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
 
-export default class PingCommand extends Command {
+export default class WandCommand extends Command {
 	public constructor() {
 		super("wand", {
 			aliases: ["wand"],
