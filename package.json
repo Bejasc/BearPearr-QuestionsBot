@@ -1,0 +1,27 @@
+{
+	"name": "bejasc-discord-bot-template",
+	"version": "1.0.0",
+	"description": "Template for a discord bot running discord.js and discord-akairo",
+	"main": "index.js",
+	"scripts": {
+		"start": "node dist/Bot.js",
+		"build": "tsc",
+		"postinstall": "npm run build",
+		"dev": "ts-node-dev --respawn --transpile-only src/Bot.ts"
+	},
+	"keywords": [],
+	"author": "Bejasc",
+	"license": "ISC",
+	"dependencies": {
+		"@types/mongoose": "^5.7.36",
+		"@types/node": "^14.0.27",
+		"discord-akairo": "^8.0.0",
+		"discord.js": "^12.2.0",
+		"dotenv-flow": "^3.2.0",
+		"mongoose": "^5.9.28",
+		"typescript": "^3.9.7"
+	},
+	"devDependencies": {
+		"ts-node-dev": "^1.0.0-pre.56"
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"prettier.useTabs": true,
+	"prettier.printWidth": 180,
+	"editor.formatOnSave": true,
+	"editor.lineNumbers": "on"
+}
