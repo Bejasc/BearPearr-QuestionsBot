@@ -14,9 +14,6 @@ The bot is configured to work through a number of envinroment variables that mus
 - `BOT_TOKEN` - Bot token provided by Discord
 - `BOT_OWNERS`- Discord ID (not tag) of the owner of the bot
 - `BOT_PREFIX` - The key before all commands, e.g `!`
-- `MONGO_URI` - Your Mongo URI as provided to you directly from MongoDB
-- `MONGO_PASSWORD` - Password for the Mongo user you have created for the database provided above
-- `MONGO_DBNAME` - Name of the database to be used
 
 # Setup
 
@@ -35,14 +32,6 @@ Refer to additional setup values below.
 5. Navigate to the `OAuth2` tab. Select the `bot` scope.
 6. Copy the URL generated, and navigate to it in your browser. Select the server to invite the bot into.
 
-## Mongo Atlas Setup
-
-1. Create a new Project in MongoDB
-2. Create a free Cluster in that project
-3. Select the appropriate region, and give the cluster a meaningful name
-4. Create a mongo user for your cluster.
-5. Find your mongo connection string, should appear similar to `mongodb+srv://bejasc:<password>@<cluster>.u6fxo.mongodb.net/<database>?retryWrites=true&w=majority`. Use this value as the `MONGO_URI` environment variable. Do not change this URI. `<password>` and `<dbname>` are provided by environment variables.
-
 ## Heroku Setup
 
 1. Create a new Heroku App. Provide the app name and region. Match the app name to the value in your `package.json` as closely as possible
@@ -55,10 +44,9 @@ Refer to additional setup values below.
 
 ## Locally
 
-1. Run `tsc`
-2. copy the `config/env.example` file into the generated `dist` directory
-3. Populate the environment variables accordingly
-4. Move your terminal into the `dist` folder and run `node bot.js`.
+1. Copy the env.example file
+2. Add your own values to your new .env file. (The .env file is not stored in GitHub to protect your tokens and keep them secure)
+3. In the terminal, run `npm run dev`
 
 ## Heroku
 
