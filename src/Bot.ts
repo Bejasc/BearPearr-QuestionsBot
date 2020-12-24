@@ -1,6 +1,8 @@
-import BotClient from "./client/BotClient";
-import Database from "./database/Database";
 import { BotOptions, MongoOptions } from "./types/Config";
+
+import BotClient from "./client/BotClient";
+
+//import Database from "./database/Database";
 
 require("dotenv-flow").config();
 
@@ -23,7 +25,9 @@ const dbConfig: MongoOptions = {
 };
 
 const client: BotClient = new BotClient(botConfig);
-const database: Database = new Database(dbConfig);
+//const database: Database = new Database(dbConfig);
 
-client.start();
-database.connect();
+client.start().then(() => {
+	console.log("Bot started");
+});
+//database.connect();
