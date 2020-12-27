@@ -8,7 +8,11 @@ This repo is to serve as an educational project for creating a Discord.JS Bot se
 The bot is able to maintain a connection to MongoDB Atlas, and features a robust event system, a character system, and various randomly generated embeds.
 The bot is inpsired by BearPearr-QuestionsBot, and is provided with a Harry Potter inspired theme.
 
-Created by Bejasc of the [Discord RPG Developers Community](https://discord.gg/aqYHAH5GE5).
+<p align="center">
+  <a href= 'https://discord.gg/aqYHAH5GE5)'><img src ="https://cdn.discordapp.com/attachments/744519449696141312/792729324423217182/drpg_shield.png"/> </a>
+  <br/>
+  Created by Bejasc of the <a href= 'https://discord.gg/aqYHAH5GE5)'>Discord RPG Developers Community</a>.
+</p>
 
 ---
 
