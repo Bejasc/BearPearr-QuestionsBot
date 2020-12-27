@@ -1,7 +1,8 @@
 import { Character, ICharacter } from "../types/Character";
 import { GuildMember, User } from "discord.js";
+import { GuildService, WandService } from ".";
 
-import { GuildService } from ".";
+import { IWand } from "../types";
 
 /**
  * Queries the Characters collection on Mongo, and tries to find a matching Character object that uses the provided ID.
@@ -40,5 +41,27 @@ export async function deleteCharacter(character: ICharacter) {
 	} catch (err) {
 		console.warn(`Unable to delete character belonging to user ${guildMember.user.tag}`);
 		console.error(err);
+	}
+}
+
+/**
+ * Creates the user and stores them in the database to be used in future commands.
+ * @param user The user the character is being created for.
+ * @param wand If a value is provided, it will use that wand. If not, one will be selected at random.
+ */
+export async function createCharacter(user: GuildMember, wand?: IWand): Promise<ICharacter> {
+	try {
+		const character = new Character();
+		character.userId = user.id;
+
+		if (!wand) character.wand = WandService.generateWand();
+		character.save();
+
+		return character;
+	} catch (err) {
+		console.warn(`Unable to create character for ${user.id}`);
+		console.error(err);
+
+		return null;
 	}
 }
