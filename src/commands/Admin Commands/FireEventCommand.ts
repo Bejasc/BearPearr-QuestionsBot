@@ -36,7 +36,7 @@ export default class CreateUserCommand extends Command {
 		if (event) {
 			EventService.fireEvent(event, targetChannel as TextChannel);
 		} else {
-			console.log("Unable to find event with ID " + eventName);
+			console.log("Unable to find event with name " + eventName);
 		}
 	}
 }

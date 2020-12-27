@@ -1,5 +1,6 @@
 import { GuildMember, Message, MessageEmbed, MessageReaction, TextChannel, User } from "discord.js";
 
+import { CharacterService } from ".";
 import { IEvent } from "../types/Event";
 
 const path = require("path");
@@ -40,6 +41,7 @@ export function getEvent(eventName?: string): IEvent {
 	if (!eventName) {
 		const event = events[Math.floor(Math.random() * events.length)];
 		console.log(`${event.eventName} event was randomly selected.`);
+		return event;
 	} else {
 		const event = events.find((e) => e.eventName == eventName);
 		if (event) {
@@ -60,28 +62,41 @@ export function getEvent(eventName?: string): IEvent {
  * @param user The user who has reacted to the event. Used only for the nested events
  */
 export async function fireEvent(event: IEvent, channel: TextChannel, user?: User): Promise<IEvent> {
+	//Build the embed for this event and send it
 	const embed = getEventEmbed(event);
 	const message = await channel.send(embed);
 
+	//Check if this event should make any changes for the user. If yes, process them
+	if (event.result) {
+		message.edit(await processEventResults(user, event, embed));
+	}
+
+	//Check if this event should fire any events after it
 	if (event.eventLinks?.length > 0) {
+		//Add reactions
 		const allowedReactions = addReactionOptions(event, message);
 		embed.setFooter("Make a selection to continue this event.");
 		message.edit(embed);
 
+		//Wait for a reaction to be added by user
 		const collectedReaction = await collectReaction(event, allowedReactions, message);
 
 		if (collectedReaction) {
 			const reactedByUser = collectedReaction.users.cache.last();
 			console.log(`${reactedByUser.username} was the first to react.`);
 
+			//Resolve this reaction to one of the eventLinks
 			const nextEvent = getEventForReaction(event, collectedReaction);
 			if (nextEvent) {
+				//Delete the original message.
 				message.delete();
 
+				//Call this same method, using the new action that was resolved above
 				return fireEvent(nextEvent, channel, reactedByUser);
 			}
 		}
 	} else {
+		//No more events to process.
 		embed.setFooter("The event is now complete.");
 		message.edit(embed);
 		return event;
@@ -137,10 +152,12 @@ function addReactionOptions(event: IEvent, message: Message): string[] {
  */
 async function collectReaction(event: IEvent, allowedReactions: string[], message: Message): Promise<MessageReaction> {
 	try {
+		//Will only process reactions that are allowed for the event (from addReactionOptions). Ignroes the bot as this counts as one reaction.
 		const filter = (reaction: MessageReaction, user: User) => {
 			return allowedReactions.includes(reaction.emoji.name) && !user.bot;
 		};
 
+		//Wait for 30 seconds to get a reaction. Only one reaction will be required to process
 		const collectedReactions = await message.awaitReactions(filter, { max: 1, time: 30000, errors: ["time"] });
 		const reaction = collectedReactions.last();
 
@@ -157,14 +174,42 @@ async function collectReaction(event: IEvent, allowedReactions: string[], messag
  * @param reaction The reaction to use for the search
  */
 function getEventForReaction(event: IEvent, reaction: MessageReaction): IEvent {
+	//Search the event to match the reaction to the linked event.
 	const match = event.eventLinks.find((event) => {
 		return event.reaction == reaction.emoji.name;
 	});
 
+	//If we have a match, return a random event from this array, as it could be one of many.
 	if (match) {
 		const nextEvent = match.event[Math.floor(Math.random() * match.event.length)];
 		return nextEvent;
 	} else {
 		return null;
 	}
+}
+
+/**
+ * Processes (add or remove) any reward items for an event.
+ * @param user The user to apply the rewards to
+ * @param event The event with the rewards enabled
+ * @param embed The embed to add the reward text to
+ */
+async function processEventResults(user: User, event: IEvent, embed: MessageEmbed): Promise<MessageEmbed> {
+	const character = await CharacterService.getCharacterForUser(user);
+
+	//Process any XP related reward
+	if (event.result.experience) {
+		//Is this gaining or losing XP?
+		const gainOrLose = event.result.experience > 0 ? "Gained" : "Lost";
+
+		console.log(`${user.tag} ${gainOrLose} ${event.result.experience} XP.`);
+
+		//Update the character object to add this XP to them.
+		character.xp += event.result.experience;
+		character.save();
+
+		//Update the embed to show this having been done
+		embed.addField(user.tag, `${gainOrLose} ${event.result.experience} experience.`);
+	}
+	return embed;
 }
