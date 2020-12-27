@@ -1,0 +1,22 @@
+{
+	"embedOptions": {
+		"title": "Embed Title",
+		"color": "#FF0000",
+		"description": "Embed message",
+		"thumbnail": "https://cdn.discordapp.com/attachments/744519449696141312/792729324423217182/drpg_shield.png",
+		"image": "https://cdn.discordapp.com/attachments/744519449696141312/792729324423217182/drpg_shield.png",
+		"sender": "Appears above title",
+		"senderAvatar": "Also appears above title",
+		"footer": "Appears below main image"
+	},
+	"eventLinks": {
+		"reaction": "💜",
+		"description": "Describe the action",
+		"event": {
+			//Any structure that is the same as this (nest an event, with its own results, embed options, and links)
+		},
+		"result": {
+			"experience": 20
+		}
+	}
+}
