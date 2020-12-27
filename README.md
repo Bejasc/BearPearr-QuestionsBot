@@ -130,7 +130,7 @@ Refer to additional setup values below.
 
 ## Locally
 
-1. Copy the env.example file
+1. Copy the env.example file and rename it to just .env
 2. Add your own values to your new .env file. (The .env file is not stored in GitHub to protect your tokens and keep them secure)
 3. In the terminal, run `npm run dev`
 
