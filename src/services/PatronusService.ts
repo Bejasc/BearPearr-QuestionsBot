@@ -1,11 +1,11 @@
 import { MessageEmbed, User } from "discord.js";
 
 import { IPatronus } from "../types";
-import patronusConfig from "../config/patronusConfig.json";
+import patronusConfig from "../database/patronuses.json";
 
 /**
  * Get a random Patronus.
- * Patronus options are stored in config/patronusConfig.
+ * Patronus options are stored in database/patronuses.json.
  * There are not stored in the DB as it is unlikely they have properties that will change *while* the bot is running.
  */
 export function getRandomPatronus(): IPatronus {
