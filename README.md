@@ -1,9 +1,79 @@
-# discordjs-ts-template
+# Bejasc - Discord Bot and Event System Sample
+
+---
 
 Discord bot using discord.js and discord-akairo.
-This repo is to be used as a template for quickly getting a Discord.JS Bot setup, enhanced with typescript.
+This repo is to serve as an educational project for creating a Discord.JS Bot setup, enhanced with typescript.
 
-The bot is able to maintain a connection to MongoDB Atlas.
+The bot is able to maintain a connection to MongoDB Atlas, and features a robust event system, a character system, and various randomly generated embeds.
+The bot is inpsired by BearPearr-QuestionsBot, and is provided with a Harry Potter inspired theme.
+
+Created by Bejasc of the [Discord RPG Developers Community](https://discord.gg/aqYHAH5GE5).
+[![DRPG Logo](https://media.discordapp.net/attachments/744458215600816171/744531805016686592/drpg.png?width=340&height=270)](https://discord.gg/aqYHAH5GE5
+
+---
+
+# Bot Information
+
+## Commands
+
+`^!createuser <optional user tag>` - creates a user for you in mongo. Defaults to your own user. Administrator only. Will randomly generate a wand for the user also
+`^!deleteuser <optional user tag>` - deletes the user. Defaults to your own user. Administrator only
+
+`^wand` - Generates a random wand
+`^patronus` - Generates a random patronus
+
+`^!event <optional event name> <optional channel>` - triggers an event in a channel. Event will be chosen at random, unless specified. Channel defaults to the current channel. Administrator only.
+
+`^char / ^flex` - Shows your wand and stats.
+
+## Notes
+
+### Structure
+
+- The command files themselves are automatically registered. They intentionally do hardly anything at all.
+- Most heavy lifting happens in the service. Some of the services talk to each other.
+- Almost anything that happens should happen at a service level, and a service should not process anything outside of its own scope.
+- Not normally part of JS, the interfaces (IEvent, IWand etc) exist to give you better intellisense and autocompletion when working with them, as well as type safety when working across functions.
+
+### Event System
+
+- The Event System could exist as one large function, but it's broken up into many smaller functions to be more readable and maintainable.
+- The Event System will read all .json files in a particular directory. This happens on Startup. If you create or modify any events, you will need to restart node.
+- If it can be parsed to an IEvent, it will be available to be randomly selected by the ^!event command.
+- The Event System does not cover randomly sending an event to a channel, although this shouldn't be too hard to implement. (Timer, select channel, select event, call fireEvent(), repeat)
+
+## Areas of Interest
+
+### Event System (JSON)
+
+- types/Event.ts
+- services/EventService.ts
+- database/events/\*.json
+- commands/Admin Commands/FireEventCommand.ts
+
+### XP System (MongoDB / Event System)
+
+- types/Character.ts
+- services/CharacterService.ts
+- commands/PublicCommands/CharacterCommand.ts
+  -types/Event.ts/result
+- services/EventService.ts/processEventResults
+
+### Character System (MongoDB)
+
+- types/Character.ts
+- services/CharacterService.ts
+- types/Wand.ts
+- services/WandService.ts
+
+### Patronus System (JSON)
+
+- types/Patronus.ts
+- services/PatronusService.ts
+- database/patronuses.json
+
+---
 
 # Environment Variables
 
@@ -14,6 +84,9 @@ The bot is configured to work through a number of envinroment variables that mus
 - `BOT_TOKEN` - Bot token provided by Discord
 - `BOT_OWNERS`- Discord ID (not tag) of the owner of the bot
 - `BOT_PREFIX` - The key before all commands, e.g `!`
+- `MONGO_URI` - Your Mongo URI as provided to you directly from MongoDB
+- `MONGO_PASSWORD` - Password for the Mongo user you have created for the database provided above
+- `MONGO_DBNAME` - Name of the database to be used
 
 # Setup
 
@@ -31,6 +104,14 @@ Refer to additional setup values below.
 4. Press `Copy` to take your Discord Token. Use this value as the `BOT_TOKEN` environment variable.
 5. Navigate to the `OAuth2` tab. Select the `bot` scope.
 6. Copy the URL generated, and navigate to it in your browser. Select the server to invite the bot into.
+
+## Mongo DB Setup
+
+1. Create a new Project in MongoDB
+2. Create a free Cluster in that project
+3. Select the appropriate region, and give the cluster a meaningful name
+4. Create a mongo user for your cluster.
+5. Find your mongo connection string, should appear similar to `mongodb+srv://bejasc:<password>@<cluster>.u6fxo.mongodb.net/<database>?retryWrites=true&w=majority`. Use this value as the `MONGO_URI` environment variable. Do not change this URI. `<password>` and `<dbname>` are provided by environment variables.
 
 ## Heroku Setup
 
