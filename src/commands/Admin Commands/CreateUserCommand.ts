@@ -23,8 +23,10 @@ export default class CreateUserCommand extends Command {
 
 	public async exec(message: Message, { member }: { member: GuildMember }): Promise<Message> {
 		console.log(`Creating a character for ${member.user.tag}...`);
-		const existingUser = await CharacterService.getCharacterForUser(member);
-		if (!existingUser) {
+
+		const existingCharacter = await CharacterService.getCharacterForUser(member);
+
+		if (!existingCharacter) {
 			const newCharacter = await CharacterService.createCharacter(member);
 
 			if (newCharacter) {
