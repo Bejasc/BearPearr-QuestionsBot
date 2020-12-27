@@ -9,7 +9,6 @@ The bot is able to maintain a connection to MongoDB Atlas, and features a robust
 The bot is inpsired by BearPearr-QuestionsBot, and is provided with a Harry Potter inspired theme.
 
 Created by Bejasc of the [Discord RPG Developers Community](https://discord.gg/aqYHAH5GE5).
-[![DRPG Logo](https://media.discordapp.net/attachments/744458215600816171/744531805016686592/drpg.png?width=340&height=270)](https://discord.gg/aqYHAH5GE5
 
 ---
 
