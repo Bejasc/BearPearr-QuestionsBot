@@ -3,6 +3,8 @@ import { GuildMember, User } from "discord.js";
 import { GuildService, WandService } from ".";
 
 import { IWand } from "../types";
+import { MessageEmbed } from "discord.js";
+import { describeWand } from "./WandService";
 
 /**
  * Queries the Characters collection on Mongo, and tries to find a matching Character object that uses the provided ID.
@@ -36,7 +38,7 @@ export async function deleteCharacter(character: ICharacter) {
 	const guildMember = GuildService.getGuildMember(character.userId);
 
 	try {
-		await Character.deleteOne(character);
+		await Character.deleteOne({ userId: character.userId });
 		console.warn(`Character for user ${guildMember.user.tag} was deleted`);
 	} catch (err) {
 		console.warn(`Unable to delete character belonging to user ${guildMember.user.tag}`);
@@ -64,4 +66,20 @@ export async function createCharacter(user: GuildMember, wand?: IWand): Promise<
 
 		return null;
 	}
+}
+
+/**
+ * Produces an embed that lists details of a character.
+ * @param character The character to describe
+ * @param user The user this character belongs to
+ */
+export function getCharacterEmbed(character: ICharacter, user: GuildMember): MessageEmbed {
+	const embed = new MessageEmbed();
+
+	embed.setAuthor(user.user.tag, user.user.avatarURL());
+	embed.setTitle(`Character Stats for ${user.user.tag}`);
+
+	embed.addField("Experience", character.xp);
+	embed.addField("Wand", describeWand(character.wand));
+	return embed;
 }

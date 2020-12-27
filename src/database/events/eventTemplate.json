@@ -1,0 +1,33 @@
+{
+	"eventName": "Test Event",
+	"embedOptions": {
+		"title": "Embed Title",
+		"color": "#FF0000",
+		"description": "Embed message",
+		"thumbnail": "https://cdn.discordapp.com/attachments/744519449696141312/792729324423217182/drpg_shield.png",
+		"image": "https://cdn.discordapp.com/attachments/744519449696141312/792729324423217182/drpg_shield.png",
+		"author": "Appears above title",
+		"authorAvatar": "https://cdn.discordapp.com/attachments/744519449696141312/792729324423217182/drpg_shield.png"
+	},
+	"eventLinks": [
+		{
+			"reaction": "💜",
+			"title": "Brief description",
+			"description": "Detailed description of the action",
+			"event": [
+				{
+					"embedOptions": {
+						"title": "Nested Event",
+						"color": "#00FF00",
+						"description": "This is a nested event. You got here after adding the specified reaction.\nNotice that not all options are declared in the embedOptions, and the root level event also does not have the results object.",
+						"author": "Appears above title",
+						"authorAvatar": "https://cdn.discordapp.com/attachments/744519449696141312/792729324423217182/drpg_shield.png"
+					},
+					"result": {
+						"experience": 20
+					}
+				}
+			]
+		}
+	]
+}

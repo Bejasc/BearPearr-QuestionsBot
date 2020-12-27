@@ -10,7 +10,10 @@ export interface ICharacter extends Document {
 
 export const CharacterSchema: Schema = new Schema({
 	userId: String,
-	xp: Number,
+	xp: {
+		type: Number,
+		default: 0,
+	},
 	wand: {},
 });
 

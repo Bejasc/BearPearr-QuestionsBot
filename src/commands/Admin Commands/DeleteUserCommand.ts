@@ -3,10 +3,10 @@ import { GuildMember, Message, TextChannel } from "discord.js";
 import { CharacterService } from "../../services";
 import { Command } from "discord-akairo";
 
-export default class CreateUserCommand extends Command {
+export default class DeleteUserCommand extends Command {
 	public constructor() {
-		super("!createUser", {
-			aliases: ["!createUser"],
+		super("!deleteUser", {
+			aliases: ["!deleteUser"],
 			category: "Admin",
 			ratelimit: 3,
 			args: [
@@ -22,18 +22,15 @@ export default class CreateUserCommand extends Command {
 	}
 
 	public async exec(message: Message, { member }: { member: GuildMember }): Promise<Message> {
-		console.log(`Creating a character for ${member.user.tag}...`);
+		console.log(`Deleting character for ${member.user.tag}...`);
 
 		const existingCharacter = await CharacterService.getCharacterForUser(member);
 
-		if (!existingCharacter) {
-			const newCharacter = await CharacterService.createCharacter(member);
-
-			if (newCharacter) {
-				return message.util.send(`A character was created for ${member}.`);
-			}
+		if (existingCharacter) {
+			await CharacterService.deleteCharacter(existingCharacter);
+			return message.util.send(`The character belonging to ${member} was deleted..`);
 		} else {
-			return message.util.send(`A character for ${member} already exists! Please delete the character first to continue.`);
+			return message.util.send(`No character found for ${member}.`);
 		}
 	}
 }

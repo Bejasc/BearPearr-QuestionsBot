@@ -35,9 +35,7 @@ export function getWandEmbed(wand: IWand, member: User): MessageEmbed {
 
 	embed.setDescription(
 		`**It appears that the wand has found its Master, <@!${member.id}>.**
-        You've obtained a **${wand.length}** wand, with a **${wand.core}** core.
-        It's made out of the finest **${wand.wood}** Wood.
-        Its build is **${wand.form}**. Good Job.`
+        Your wand is ${describeWand(wand)}.`
 	);
 
 	embed.addField("Length", wand.length, true);
@@ -46,4 +44,12 @@ export function getWandEmbed(wand: IWand, member: User): MessageEmbed {
 	embed.addField("Core", wand.core, true);
 
 	return embed;
+}
+
+/**
+ * Produces a string description of a wand.
+ * @param wand The wand to describe
+ */
+export function describeWand(wand: IWand): string {
+	return `**${wand.length}es** long, with a **${wand.core}** core. It's made of **${wand.wood}** wood, with a **${wand.form}** build.`;
 }
