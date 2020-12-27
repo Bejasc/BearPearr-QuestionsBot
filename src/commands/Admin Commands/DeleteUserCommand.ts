@@ -24,8 +24,10 @@ export default class DeleteUserCommand extends Command {
 	public async exec(message: Message, { member }: { member: GuildMember }): Promise<Message> {
 		console.log(`Deleting character for ${member.user.tag}...`);
 
-		const existingUser = await CharacterService.getCharacterForUser(member);
-		if (!existingUser) {
+		const existingCharacter = await CharacterService.getCharacterForUser(member);
+
+		if (existingCharacter) {
+			await CharacterService.deleteCharacter(existingCharacter);
 			return message.util.send(`The character belonging to ${member} was deleted..`);
 		} else {
 			return message.util.send(`No character found for ${member}.`);
