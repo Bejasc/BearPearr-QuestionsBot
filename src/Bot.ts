@@ -2,6 +2,7 @@ import { BotOptions, MongoOptions } from "./types/Config";
 
 import BotClient from "./client/BotClient";
 import Database from "./database/database";
+import { EventService } from "./services";
 
 //import Database from "./database/Database";
 
@@ -33,6 +34,9 @@ client
 	.then(() => {
 		database.connect();
 		return console.log("Ready to go!");
+	})
+	.then(() => {
+		EventService.loadEvents();
 	})
 	.catch((err) => {
 		console.error(err);
