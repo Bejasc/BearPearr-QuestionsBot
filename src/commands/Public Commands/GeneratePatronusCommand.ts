@@ -1,4 +1,4 @@
-import { getPatronusEmbed, getRandomPatronus } from "../../types/Patronus";
+import { getPatronusEmbed, getRandomPatronus } from "../../services/PatronusService";
 
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
@@ -19,7 +19,7 @@ export default class PatronusCommand extends Command {
 
 	public exec(message: Message): Promise<Message> {
 		const patronus = getRandomPatronus();
-		const wandEmbed = getPatronusEmbed(patronus, message.author);
-		return message.util.send(wandEmbed);
+		const patronusEmbed = getPatronusEmbed(patronus, message.author);
+		return message.util.send(patronusEmbed);
 	}
 }
