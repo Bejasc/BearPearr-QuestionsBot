@@ -1,6 +1,7 @@
 import { BotOptions, MongoOptions } from "./types/Config";
 
 import BotClient from "./client/BotClient";
+import Database from "./database/database";
 
 //import Database from "./database/Database";
 
@@ -24,10 +25,15 @@ const dbConfig: MongoOptions = {
 	},
 };
 
-const client: BotClient = new BotClient(botConfig);
-//const database: Database = new Database(dbConfig);
+export const client: BotClient = new BotClient(botConfig);
+const database: Database = new Database(dbConfig);
 
-client.start().then(() => {
-	console.log("Bot started");
-});
-//database.connect();
+client
+	.start()
+	.then(() => {
+		database.connect();
+		return console.log("Ready to go!");
+	})
+	.catch((err) => {
+		console.error(err);
+	});
