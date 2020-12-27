@@ -1,19 +1,22 @@
 export interface IEvent {
+	eventName?: string;
 	embedOptions: {
 		title: string;
 		color?: string;
 		description: string;
 		thumbnail?: string;
 		image?: string;
-		sender?: string;
-		senderAvatar?: string;
-		footer?: string;
+		author?: string;
+		authorAvatar?: string;
 	};
-	eventLinks?: {
-		reaction: string;
-		description?: string;
-		event: IEvent;
-	};
+	eventLinks?: [
+		{
+			reaction: string;
+			title: string;
+			description: string;
+			event: IEvent[];
+		}
+	];
 	result?: {
 		experience?: number;
 	};
