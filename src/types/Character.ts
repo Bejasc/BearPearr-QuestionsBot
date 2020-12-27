@@ -6,13 +6,10 @@ export interface ICharacter extends Document {
 	userId: string;
 	xp: number;
 	wand: IWand;
-	house: "Gryffindor" | "Hufflepuff" | "Ravenclaw" | "Slytherin";
 }
 
 export const CharacterSchema: Schema = new Schema({
 	userId: String,
-	houseId: String,
-	patronusId: String,
 	xp: Number,
 	wand: {},
 });

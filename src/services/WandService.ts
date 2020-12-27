@@ -19,7 +19,7 @@ export function generateWand(): IWand {
 }
 
 /**
- * Builds the embed required for the wand
+ * Builds the embed to display info about a wand.
  * @param wand
  * @param member
  */

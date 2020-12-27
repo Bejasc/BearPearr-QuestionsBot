@@ -17,7 +17,7 @@ export async function getCharacterForUser(user: string | GuildMember | User): Pr
 		const character = await Character.findOne({ userId: user });
 
 		if (character) {
-			console.log(`Found one user in house ${character.house} matching belonging to ${guildMember.user.tag}`);
+			console.log(`Found one character belonging to ${guildMember.user.tag}`);
 			return character;
 		} else {
 			console.warn(`Unable to find a character for ${guildMember.user.tag}. Perhaps they are not yet created?`);
