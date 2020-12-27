@@ -1,4 +1,4 @@
-import { generateWand, getWandEmbed } from "../../types/Wand";
+import { generateWand, getWandEmbed } from "../../services/WandService";
 
 import { Command } from "discord-akairo";
 import { Message } from "discord.js";
