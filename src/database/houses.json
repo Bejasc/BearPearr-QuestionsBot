@@ -1,0 +1,30 @@
+[
+	{
+		"name": "Gryffindor",
+		"color": "#7f0909",
+		"crest": "https://static.wikia.nocookie.net/harrypotter/images/b/b1/Gryffindor_ClearBG.png",
+		"values": ["Courage", "Bravery", "Daring", "Nerve", "Chivalry"],
+		"founder": "Godric Gryffindor"
+	},
+	{
+		"name": "Slytherin",
+		"color": "#0d6217",
+		"crest": "https://static.wikia.nocookie.net/harrypotter/images/0/00/Slytherin_ClearBG.png",
+		"values": ["Ambition", "Leadership", "Self-preservation", "Cunning", "Resourcefulness"],
+		"founder": "Salazar Slytherin"
+	},
+	{
+		"name": "Ravenclaw",
+		"color": "#000a90",
+		"crest": "https://static.wikia.nocookie.net/harrypotter/images/4/4e/RavenclawCrest.png",
+		"values": ["Intelligence", "Knowledge", "Curiosity", "Bravery", "Wit"],
+		"founder": "Rowena Ravenclaw"
+	},
+	{
+		"name": "Hufflepuff",
+		"color": "#eee117",
+		"crest": "https://static.wikia.nocookie.net/harrypotter/images/0/06/Hufflepuff_ClearBG.png",
+		"values": ["Hard work", "Dedication", "Patience", "Loyalty", "Fair play"],
+		"founder": "Helga Hufflepuff"
+	}
+]
